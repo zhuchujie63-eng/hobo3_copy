@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Main Content -->
+<div class="main-content">
+    <header class="d-flex justify-content-between align-items-center mb-4">
+        <div class="header-left">
+            <!-- Logo area if needed, mostly handled by nav now -->
+        </div>
+        <div class="header-right d-flex gap-2">
+            <!-- Language Selector -->
+            <div class="lang-dropdown-container">
+                <button id="ui-lang-btn" class="icon-btn" title="Language">
+                    <i class="fa-solid fa-language"></i>
+                    <span id="current-lang-text">CN</span>
+                    <i class="fa-solid fa-chevron-down" style="font-size: 0.7em; margin-left: 4px;"></i>
+                </button>
+                <div id="ui-lang-menu" class="lang-menu hidden">
+                    <div class="lang-option" data-lang="en">English</div>
+                    <div class="lang-option active" data-lang="zh">简体中文</div>
+                </div>
+            </div>
+            
+            <!-- History Toggle -->
+            <button id="history-toggle-btn" class="icon-btn" title="History">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span class="btn-label" data-i18n="history_btn">历史</span>
+            </button>
+
+            <!-- Theme Toggle -->
+            <button id="theme-toggle" class="icon-btn" title="Toggle Light/Dark Mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="mode-selector">
+            <div class="mode-option active" data-mode="1">
+                <i class="fa-solid fa-earth-americas mode-icon"></i>
+                <div class="mode-info">
+                    <span class="mode-title" data-i18n="mode1_title">英文输入</span>
+                    <span class="mode-desc" data-i18n="mode1_desc">转中文 + 外语 + 配音</span>
+                </div>
+            </div>
+            <div class="mode-option" data-mode="3">
+                <i class="fa-solid fa-microphone-lines mode-icon"></i>
+                <div class="mode-info">
+                    <span class="mode-title" data-i18n="mode3_title">英文配音</span>
+                    <span class="mode-desc" data-i18n="mode3_desc">英文文案直接配音</span>
+                </div>
+            </div>
+            <div class="mode-option" data-mode="2">
+                <i class="fa-solid fa-earth-asia mode-icon"></i>
+                <div class="mode-info">
+                    <span class="mode-title" data-i18n="mode2_title">中文输入</span>
+                    <span class="mode-desc" data-i18n="mode2_desc">转外语 + 配音</span>
+                </div>
+            </div>
+            <!-- New Mode 4: TikTok Tools -->
+            <div class="mode-option" data-mode="4">
+                <i class="fa-brands fa-tiktok mode-icon"></i>
+                <div class="mode-info">
+                    <span class="mode-title">TikTok 字幕</span>
+                    <span class="mode-desc">提取并下载字幕</span>
+                </div>
+            </div>
+            <div class="mode-option" data-mode="5">
+                <i class="fa-solid fa-video mode-icon"></i>
+                <div class="mode-info">
+                    <span class="mode-title" data-i18n="mode5_title">视频工具</span>
+                    <span class="mode-desc" data-i18n="mode5_desc">下载与处理</span>
+                </div>
+            </div>
+        </div>
+
+    <div id="video-downloader-area" style="display: none;">
+        <div class="input-area">
+             <input type="text" id="video-url-input" placeholder="在此粘贴视频链接...">
+        </div>
+        <div class="action-area" style="margin-bottom: 24px;">
+            <button id="load-video-btn" class="primary-btn">
+                <span class="btn-text" data-i18n="load_video_btn">加载视频</span>
+            </button>
+        </div>
+        <div id="iframe-container" class="iframe-container">
+            <iframe id="cardApiIframe" scrolling="no" width="100%" height="100%" allowtransparency="true" style="border: none; min-height: 400px;" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Initialize iframe resizer
+        document.addEventListener('DOMContentLoaded', function() {
+            iFrameResize({ log: false }, '#cardApiIframe');
+        });
+    </script>
+
+    <div id="second-lang-selector" class="lang-selector">
+        <label id="lang-selector-label" data-i18n="target_lang_label">目标语言：</label>
+        <div class="radio-group">
+            <label class="radio-label" id="lang-option-english" style="display: none;">
+                <input type="radio" name="second_lang" value="English">
+                <span class="flag-icon">🇺🇸</span> <span>英语</span>
+            </label>
+            <label class="radio-label" id="lang-option-french">
+                <input type="radio" name="second_lang" value="French" checked>
+                <span class="flag-icon">🇫🇷</span> <span>法语</span>
+            </label>
+            <label class="radio-label" id="lang-option-german">
+                <input type="radio" name="second_lang" value="German">
+                <span class="flag-icon">🇩🇪</span> <span>德语</span>
+            </label>
+            <label class="radio-label" id="lang-option-portuguese">
+                <input type="radio" name="second_lang" value="Portuguese">
+                <span class="flag-icon">🇧🇷</span> <span>葡萄牙语</span>
+            </label>
+            <label class="radio-label" id="lang-option-japanese">
+                <input type="radio" name="second_lang" value="Japanese">
+                <span class="flag-icon">🇯🇵</span> <span>日语</span>
+            </label>
+        </div>
+    </div>
+    
+    <div id="pure-mode-options" class="lang-selector" style="display: none;">
+        <label>Translation Type:</label>
+        <div class="radio-group">
+            <label class="radio-label">
+                <input type="radio" name="pure_sub_mode" value="1" checked>
+                <span>English → Multi</span>
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="pure_sub_mode" value="2">
+                <span>Chinese → English</span>
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="pure_sub_mode" value="3">
+                <span>Chinese → Portuguese</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="input-area">
+        <textarea id="input-text" placeholder="请输入文本..."></textarea>
+        <div class="char-count">0 chars</div>
+    </div>
+
+    <div class="action-area">
+        <button id="process-btn" class="primary-btn">
+            <span class="btn-text" data-i18n="process_btn">开始生成</span>
+            <span class="loader"></span>
+        </button>
+    </div>
+
+    <div id="result-area" class="result-area hidden">
+        <div class="result-header">
+            <h2 data-i18n="result_title">处理结果</h2>
+            <span id="status-msg"></span>
+        </div>
+        <div class="result-content">
+            <pre id="translation-output"></pre>
+        </div>
+        <div id="audio-container" class="audio-container hidden">
+            <h3 data-i18n="audio_title">语音输出</h3>
+            <div class="voice-selector">
+                <label for="voice-select">选择声音:</label>
+                <select id="voice-select">
+                    <option value="male-qn-qingse">标准男声</option>
+                    <option value="female-shaonv">活力少女</option>
+                    <option value="female-yujie">成熟御姐</option>
+                    <option value="male-chenwen">沉稳男声</option>
+                </select>
+            </div>
+            <button id="synthesize-btn" class="primary-btn" style="margin-top: 10px;">一键配音</button>
+            <audio id="audio-player" controls style="margin-top: 10px;"></audio>
+            <div class="srt-buttons" style="margin-top: 10px;">
+                <a id="download-cn-srt-btn" href="#" download class="btn secondary-btn hidden" style="margin-right: 10px; display: none;" data-i18n="btn_dl_cn_srt">下载中文字幕</a>
+                <a id="download-target-srt-btn" href="#" download class="btn secondary-btn hidden" style="display: none;" data-i18n="btn_dl_target_srt">下载外语字幕</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- New TikTok Result Area -->
+    <div id="tiktok-result-area" class="result-area hidden" style="padding: 0;">
+        <div class="tiktok-layout">
+            <!-- Left: Preview -->
+            <div class="tiktok-preview">
+                <img id="tiktok-thumbnail" src="" alt="Video Thumbnail" class="tiktok-thumb-img">
+                <video id="tiktok-video-player" controls class="tiktok-video hidden" style="width: 100%; height: 100%; object-fit: contain;">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="tiktok-play-overlay">
+                    <i class="fa-solid fa-play"></i>
+                </div>
+                <div class="tiktok-meta">
+                    <h3 id="tiktok-title">TikTok Video</h3>
+                </div>
+            </div>
+            
+            <!-- Right: Content -->
+            <div class="tiktok-content">
+                <div class="tiktok-controls">
+                    <div class="control-group">
+                        <i class="fa-solid fa-language" style="color: var(--text-secondary);"></i>
+                        <select id="tiktok-lang-select" class="tiktok-select"></select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="timestamp-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span class="toggle-label">Show timestamp</span>
+                    </div>
+                    
+                    <div class="control-actions">
+                        <button id="tiktok-copy-btn" class="icon-btn" title="Copy Text"><i class="fa-regular fa-copy"></i></button>
+                        <a id="tiktok-download-btn" class="icon-btn" title="Download SRT" download><i class="fa-solid fa-download"></i></a>
+                    </div>
+                </div>
+                
+                <textarea id="tiktok-subtitle-text" readonly></textarea>
+            </div>
+        </div>
+    </div>
+    </main>
+</div>
+
+<!-- History Drawer -->
+<div id="history-overlay" class="history-overlay hidden"></div>
+<div id="history-drawer" class="history-drawer">
+    <div class="history-header">
+        <h3 data-i18n="history_title"><i class="fa-solid fa-clock-rotate-left"></i> 历史记录</h3>
+        <button id="close-history-btn" class="icon-btn small"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="history-actions" style="padding: 0 16px 16px 16px; border-bottom: 1px solid var(--border-color);">
+        <button id="clear-history-btn" class="secondary-btn small-btn" style="width: 100%; justify-content: center;" data-i18n="clear_history">清空历史</button>
+    </div>
+    <div id="history-list" class="history-list-vertical">
+        <div class="history-item-empty" data-i18n="no_history">暂无历史记录</div>
+    </div>
+</div>
+
+<script src="/static/js/script.js"></script>
+{% endblock %}

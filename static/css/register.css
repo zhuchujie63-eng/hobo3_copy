@@ -1,0 +1,587 @@
+
+/* register.css */
+
+/* --- Reset & Base --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevent scrollbars from background */
+}
+
+/* --- Dynamic Galaxy Background (CSS Based) --- */
+.galaxy-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at bottom, #090A0F 0%, #000000 100%);
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Stars */
+.stars-sm, .stars-md, .stars-lg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: transparent;
+}
+
+/* Generated Stars */
+.stars-sm::after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    border-radius: 50%;
+    animation: stars-move 50s linear infinite;
+    box-shadow: 26vw 8vh rgba(255, 255, 255, 0.69), 91vw 2vh rgba(255, 255, 255, 0.73), 38vw 31vh rgba(255, 255, 255, 0.78), 69vw 49vh rgba(255, 255, 255, 0.56), 67vw 62vh rgba(255, 255, 255, 0.81), 31vw 84vh rgba(255, 255, 255, 0.84), 77vw 45vh rgba(255, 255, 255, 0.71), 42vw 87vh rgba(255, 255, 255, 0.59), 41vw 83vh rgba(255, 255, 255, 0.76), 50vw 34vh rgba(255, 255, 255, 0.55), 45vw 37vh rgba(255, 255, 255, 0.90), 34vw 79vh rgba(255, 255, 255, 0.72), 2vw 89vh rgba(255, 255, 255, 0.59), 21vw 33vh rgba(255, 255, 255, 0.55), 42vw 28vh rgba(255, 255, 255, 0.82), 28vw 68vh rgba(255, 255, 255, 0.52), 24vw 46vh rgba(255, 255, 255, 0.69), 18vw 79vh rgba(255, 255, 255, 0.79), 30vw 25vh rgba(255, 255, 255, 0.89), 91vw 97vh rgba(255, 255, 255, 0.84), 65vw 36vh rgba(255, 255, 255, 0.57), 7vw 98vh rgba(255, 255, 255, 0.61), 43vw 15vh rgba(255, 255, 255, 0.89), 71vw 18vh rgba(255, 255, 255, 0.90), 5vw 19vh rgba(255, 255, 255, 0.80), 46vw 95vh rgba(255, 255, 255, 0.90), 37vw 18vh rgba(255, 255, 255, 0.83), 73vw 89vh rgba(255, 255, 255, 0.64), 73vw 48vh rgba(255, 255, 255, 0.84), 28vw 27vh rgba(255, 255, 255, 0.77), 98vw 65vh rgba(255, 255, 255, 0.76), 32vw 44vh rgba(255, 255, 255, 0.84), 84vw 82vh rgba(255, 255, 255, 0.54), 73vw 67vh rgba(255, 255, 255, 0.77), 27vw 5vh rgba(255, 255, 255, 0.67), 3vw 23vh rgba(255, 255, 255, 0.62), 89vw 98vh rgba(255, 255, 255, 0.63), 54vw 72vh rgba(255, 255, 255, 0.55), 12vw 78vh rgba(255, 255, 255, 0.79), 69vw 92vh rgba(255, 255, 255, 0.89), 8vw 64vh rgba(255, 255, 255, 0.89), 76vw 38vh rgba(255, 255, 255, 0.60), 52vw 97vh rgba(255, 255, 255, 0.85), 99vw 7vh rgba(255, 255, 255, 0.83), 25vw 87vh rgba(255, 255, 255, 0.69), 71vw 47vh rgba(255, 255, 255, 0.71), 10vw 74vh rgba(255, 255, 255, 0.72), 56vw 67vh rgba(255, 255, 255, 0.82), 2vw 66vh rgba(255, 255, 255, 0.61), 44vw 98vh rgba(255, 255, 255, 0.59), 62vw 41vh rgba(255, 255, 255, 0.75), 36vw 9vh rgba(255, 255, 255, 0.87), 43vw 55vh rgba(255, 255, 255, 0.62), 84vw 86vh rgba(255, 255, 255, 0.73), 28vw 43vh rgba(255, 255, 255, 0.76), 34vw 64vh rgba(255, 255, 255, 0.87), 14vw 86vh rgba(255, 255, 255, 0.50), 70vw 95vh rgba(255, 255, 255, 0.86), 30vw 33vh rgba(255, 255, 255, 0.70), 68vw 83vh rgba(255, 255, 255, 0.82), 37vw 9vh rgba(255, 255, 255, 0.71), 48vw 96vh rgba(255, 255, 255, 0.83), 35vw 25vh rgba(255, 255, 255, 0.71), 12vw 10vh rgba(255, 255, 255, 0.75), 62vw 52vh rgba(255, 255, 255, 0.69), 5vw 42vh rgba(255, 255, 255, 0.88), 40vw 43vh rgba(255, 255, 255, 0.63), 83vw 46vh rgba(255, 255, 255, 0.82), 15vw 78vh rgba(255, 255, 255, 0.79), 50vw 83vh rgba(255, 255, 255, 0.85), 83vw 75vh rgba(255, 255, 255, 0.88), 23vw 5vh rgba(255, 255, 255, 0.63), 6vw 22vh rgba(255, 255, 255, 0.80), 39vw 73vh rgba(255, 255, 255, 0.70), 18vw 8vh rgba(255, 255, 255, 0.80), 35vw 55vh rgba(255, 255, 255, 0.51), 9vw 62vh rgba(255, 255, 255, 0.78), 84vw 45vh rgba(255, 255, 255, 0.54), 1vw 7vh rgba(255, 255, 255, 0.69), 51vw 49vh rgba(255, 255, 255, 0.75), 43vw 11vh rgba(255, 255, 255, 0.67), 39vw 54vh rgba(255, 255, 255, 0.72), 36vw 19vh rgba(255, 255, 255, 0.56), 44vw 14vh rgba(255, 255, 255, 0.88), 11vw 84vh rgba(255, 255, 255, 0.72), 28vw 6vh rgba(255, 255, 255, 0.50), 67vw 40vh rgba(255, 255, 255, 0.87), 68vw 28vh rgba(255, 255, 255, 0.70), 22vw 17vh rgba(255, 255, 255, 0.83), 33vw 42vh rgba(255, 255, 255, 0.59), 100vw 4vh rgba(255, 255, 255, 0.75), 18vw 59vh rgba(255, 255, 255, 0.55), 45vw 84vh rgba(255, 255, 255, 0.50), 88vw 9vh rgba(255, 255, 255, 0.57), 71vw 64vh rgba(255, 255, 255, 0.69), 46vw 89vh rgba(255, 255, 255, 0.63), 83vw 2vh rgba(255, 255, 255, 0.60), 85vw 49vh rgba(255, 255, 255, 0.84), 26vw 75vh rgba(255, 255, 255, 0.57), 64vw 69vh rgba(255, 255, 255, 0.54), 59vw 86vh rgba(255, 255, 255, 0.88), 53vw 61vh rgba(255, 255, 255, 0.68), 100vw 51vh rgba(255, 255, 255, 0.58), 45vw 96vh rgba(255, 255, 255, 0.90), 90vw 92vh rgba(255, 255, 255, 0.63), 73vw 87vh rgba(255, 255, 255, 0.80), 31vw 93vh rgba(255, 255, 255, 0.59), 66vw 8vh rgba(255, 255, 255, 0.83), 68vw 81vh rgba(255, 255, 255, 0.62), 5vw 59vh rgba(255, 255, 255, 0.66), 68vw 96vh rgba(255, 255, 255, 0.51), 37vw 41vh rgba(255, 255, 255, 0.58), 34vw 3vh rgba(255, 255, 255, 0.85), 89vw 94vh rgba(255, 255, 255, 0.66), 44vw 38vh rgba(255, 255, 255, 0.89), 54vw 4vh rgba(255, 255, 255, 0.52), 38vw 42vh rgba(255, 255, 255, 0.66), 82vw 99vh rgba(255, 255, 255, 0.83), 65vw 70vh rgba(255, 255, 255, 0.89), 32vw 96vh rgba(255, 255, 255, 0.66), 37vw 65vh rgba(255, 255, 255, 0.76), 9vw 21vh rgba(255, 255, 255, 0.68), 26vw 26vh rgba(255, 255, 255, 0.60), 16vw 56vh rgba(255, 255, 255, 0.88), 7vw 92vh rgba(255, 255, 255, 0.81), 88vw 93vh rgba(255, 255, 255, 0.66), 99vw 13vh rgba(255, 255, 255, 0.79), 15vw 70vh rgba(255, 255, 255, 0.70), 40vw 55vh rgba(255, 255, 255, 0.75), 54vw 84vh rgba(255, 255, 255, 0.86), 23vw 24vh rgba(255, 255, 255, 0.55), 43vw 14vh rgba(255, 255, 255, 0.90), 55vw 50vh rgba(255, 255, 255, 0.66), 87vw 82vh rgba(255, 255, 255, 0.74), 85vw 60vh rgba(255, 255, 255, 0.87), 95vw 2vh rgba(255, 255, 255, 0.51), 59vw 17vh rgba(255, 255, 255, 0.65), 8vw 99vh rgba(255, 255, 255, 0.56), 51vw 50vh rgba(255, 255, 255, 0.54), 34vw 49vh rgba(255, 255, 255, 0.64), 87vw 91vh rgba(255, 255, 255, 0.82), 87vw 31vh rgba(255, 255, 255, 0.81), 9vw 59vh rgba(255, 255, 255, 0.78), 60vw 3vh rgba(255, 255, 255, 0.52), 74vw 48vh rgba(255, 255, 255, 0.87), 86vw 10vh rgba(255, 255, 255, 0.51), 64vw 26vh rgba(255, 255, 255, 0.84), 38vw 73vh rgba(255, 255, 255, 0.82), 31vw 10vh rgba(255, 255, 255, 0.71), 71vw 13vh rgba(255, 255, 255, 0.51), 34vw 85vh rgba(255, 255, 255, 0.71), 84vw 26vh rgba(255, 255, 255, 0.55), 62vw 39vh rgba(255, 255, 255, 0.63), 8vw 11vh rgba(255, 255, 255, 0.84), 43vw 58vh rgba(255, 255, 255, 0.70), 38vw 96vh rgba(255, 255, 255, 0.81), 41vw 71vh rgba(255, 255, 255, 0.50), 52vw 95vh rgba(255, 255, 255, 0.71), 52vw 83vh rgba(255, 255, 255, 0.53), 65vw 81vh rgba(255, 255, 255, 0.74), 6vw 39vh rgba(255, 255, 255, 0.60), 58vw 78vh rgba(255, 255, 255, 0.78), 30vw 71vh rgba(255, 255, 255, 0.55), 67vw 81vh rgba(255, 255, 255, 0.51), 82vw 44vh rgba(255, 255, 255, 0.80), 99vw 51vh rgba(255, 255, 255, 0.82), 17vw 43vh rgba(255, 255, 255, 0.58), 7vw 29vh rgba(255, 255, 255, 0.70), 15vw 83vh rgba(255, 255, 255, 0.82), 66vw 89vh rgba(255, 255, 255, 0.78), 92vw 97vh rgba(255, 255, 255, 0.65), 36vw 30vh rgba(255, 255, 255, 0.74), 59vw 11vh rgba(255, 255, 255, 0.76), 2vw 94vh rgba(255, 255, 255, 0.58), 19vw 14vh rgba(255, 255, 255, 0.60), 30vw 72vh rgba(255, 255, 255, 0.55), 55vw 65vh rgba(255, 255, 255, 0.80), 35vw 35vh rgba(255, 255, 255, 0.85), 11vw 48vh rgba(255, 255, 255, 0.68), 37vw 63vh rgba(255, 255, 255, 0.56), 48vw 58vh rgba(255, 255, 255, 0.90), 11vw 83vh rgba(255, 255, 255, 0.73), 43vw 12vh rgba(255, 255, 255, 0.69), 65vw 100vh rgba(255, 255, 255, 0.67), 12vw 25vh rgba(255, 255, 255, 0.58), 42vw 12vh rgba(255, 255, 255, 0.83), 34vw 16vh rgba(255, 255, 255, 0.89), 20vw 12vh rgba(255, 255, 255, 0.64), 82vw 86vh rgba(255, 255, 255, 0.81), 42vw 90vh rgba(255, 255, 255, 0.61), 23vw 71vh rgba(255, 255, 255, 0.68), 84vw 40vh rgba(255, 255, 255, 0.74), 24vw 64vh rgba(255, 255, 255, 0.79), 84vw 73vh rgba(255, 255, 255, 0.85), 21vw 68vh rgba(255, 255, 255, 0.53), 5vw 31vh rgba(255, 255, 255, 0.52), 30vw 100vh rgba(255, 255, 255, 0.73), 66vw 78vh rgba(255, 255, 255, 0.84), 85vw 35vh rgba(255, 255, 255, 0.84), 95vw 35vh rgba(255, 255, 255, 0.68), 52vw 18vh rgba(255, 255, 255, 0.58), 88vw 36vh rgba(255, 255, 255, 0.79), 46vw 84vh rgba(255, 255, 255, 0.80), 45vw 63vh rgba(255, 255, 255, 0.68), 49vw 90vh rgba(255, 255, 255, 0.57), 33vw 77vh rgba(255, 255, 255, 0.83), 49vw 16vh rgba(255, 255, 255, 0.58), 28vw 10vh rgba(255, 255, 255, 0.87), 83vw 18vh rgba(255, 255, 255, 0.77), 74vw 63vh rgba(255, 255, 255, 0.53), 97vw 55vh rgba(255, 255, 255, 0.79), 58vw 28vh rgba(255, 255, 255, 0.82), 47vw 51vh rgba(255, 255, 255, 0.75), 31vw 17vh rgba(255, 255, 255, 0.63), 78vw 37vh rgba(255, 255, 255, 0.54), 67vw 24vh rgba(255, 255, 255, 0.51), 78vw 47vh rgba(255, 255, 255, 0.75), 63vw 19vh rgba(255, 255, 255, 0.59), 8vw 74vh rgba(255, 255, 255, 0.59), 56vw 27vh rgba(255, 255, 255, 0.61), 92vw 9vh rgba(255, 255, 255, 0.82), 50vw 64vh rgba(255, 255, 255, 0.66), 96vw 17vh rgba(255, 255, 255, 0.58), 67vw 49vh rgba(255, 255, 255, 0.77), 81vw 79vh rgba(255, 255, 255, 0.64), 41vw 70vh rgba(255, 255, 255, 0.84), 2vw 11vh rgba(255, 255, 255, 0.54), 76vw 90vh rgba(255, 255, 255, 0.71), 88vw 32vh rgba(255, 255, 255, 0.88), 64vw 40vh rgba(255, 255, 255, 0.87), 95vw 21vh rgba(255, 255, 255, 0.76), 86vw 37vh rgba(255, 255, 255, 0.59), 26vw 4vh rgba(255, 255, 255, 0.77), 40vw 53vh rgba(255, 255, 255, 0.79), 55vw 59vh rgba(255, 255, 255, 0.76), 94vw 2vh rgba(255, 255, 255, 0.78), 83vw 76vh rgba(255, 255, 255, 0.54), 6vw 100vh rgba(255, 255, 255, 0.79), 9vw 30vh rgba(255, 255, 255, 0.74), 10vw 26vh rgba(255, 255, 255, 0.63), 42vw 6vh rgba(255, 255, 255, 0.55), 1vw 47vh rgba(255, 255, 255, 0.81), 90vw 29vh rgba(255, 255, 255, 0.60), 69vw 27vh rgba(255, 255, 255, 0.53), 39vw 91vh rgba(255, 255, 255, 0.68), 2vw 24vh rgba(255, 255, 255, 0.61), 34vw 56vh rgba(255, 255, 255, 0.53), 36vw 37vh rgba(255, 255, 255, 0.88), 2vw 100vh rgba(255, 255, 255, 0.57), 19vw 10vh rgba(255, 255, 255, 0.69), 66vw 90vh rgba(255, 255, 255, 0.63), 31vw 51vh rgba(255, 255, 255, 0.69), 79vw 23vh rgba(255, 255, 255, 0.83), 19vw 30vh rgba(255, 255, 255, 0.81), 51vw 60vh rgba(255, 255, 255, 0.85), 34vw 85vh rgba(255, 255, 255, 0.80), 11vw 88vh rgba(255, 255, 255, 0.58), 56vw 22vh rgba(255, 255, 255, 0.75), 60vw 2vh rgba(255, 255, 255, 0.88), 13vw 42vh rgba(255, 255, 255, 0.85), 61vw 70vh rgba(255, 255, 255, 0.86), 59vw 70vh rgba(255, 255, 255, 0.88), 34vw 4vh rgba(255, 255, 255, 0.76), 87vw 15vh rgba(255, 255, 255, 0.60), 86vw 15vh rgba(255, 255, 255, 0.71), 37vw 58vh rgba(255, 255, 255, 0.79), 13vw 76vh rgba(255, 255, 255, 0.74), 25vw 91vh rgba(255, 255, 255, 0.89), 19vw 12vh rgba(255, 255, 255, 0.62), 14vw 76vh rgba(255, 255, 255, 0.58), 18vw 89vh rgba(255, 255, 255, 0.59), 99vw 29vh rgba(255, 255, 255, 0.76), 52vw 59vh rgba(255, 255, 255, 0.62), 60vw 75vh rgba(255, 255, 255, 0.87), 88vw 25vh rgba(255, 255, 255, 0.61), 93vw 53vh rgba(255, 255, 255, 0.80), 86vw 20vh rgba(255, 255, 255, 0.61), 70vw 92vh rgba(255, 255, 255, 0.70), 66vw 87vh rgba(255, 255, 255, 0.62), 97vw 75vh rgba(255, 255, 255, 0.64), 6vw 54vh rgba(255, 255, 255, 0.80), 15vw 56vh rgba(255, 255, 255, 0.55), 40vw 94vh rgba(255, 255, 255, 0.54), 54vw 25vh rgba(255, 255, 255, 0.63), 59vw 80vh rgba(255, 255, 255, 0.77), 7vw 59vh rgba(255, 255, 255, 0.55), 17vw 20vh rgba(255, 255, 255, 0.90), 23vw 6vh rgba(255, 255, 255, 0.51), 62vw 94vh rgba(255, 255, 255, 0.89), 19vw 99vh rgba(255, 255, 255, 0.63), 11vw 76vh rgba(255, 255, 255, 0.64), 21vw 73vh rgba(255, 255, 255, 0.83), 26vw 60vh rgba(255, 255, 255, 0.90), 69vw 68vh rgba(255, 255, 255, 0.83), 1vw 28vh rgba(255, 255, 255, 0.54), 67vw 8vh rgba(255, 255, 255, 0.55), 18vw 4vh rgba(255, 255, 255, 0.82), 87vw 70vh rgba(255, 255, 255, 0.73), 14vw 42vh rgba(255, 255, 255, 0.62), 91vw 71vh rgba(255, 255, 255, 0.78);
+}
+.stars-md::after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    border-radius: 50%;
+    animation: stars-move 75s linear infinite;
+    box-shadow: 95vw 2vh rgba(255, 255, 255, 0.91), 95vw 18vh rgba(255, 255, 255, 0.91), 74vw 31vh rgba(255, 255, 255, 0.92), 91vw 48vh rgba(255, 255, 255, 0.77), 36vw 41vh rgba(255, 255, 255, 0.86), 56vw 89vh rgba(255, 255, 255, 0.87), 12vw 77vh rgba(255, 255, 255, 0.89), 14vw 92vh rgba(255, 255, 255, 0.80), 93vw 92vh rgba(255, 255, 255, 0.96), 81vw 29vh rgba(255, 255, 255, 0.97), 78vw 58vh rgba(255, 255, 255, 0.80), 52vw 82vh rgba(255, 255, 255, 0.86), 19vw 20vh rgba(255, 255, 255, 0.71), 3vw 2vh rgba(255, 255, 255, 0.82), 15vw 81vh rgba(255, 255, 255, 0.77), 65vw 35vh rgba(255, 255, 255, 0.73), 97vw 5vh rgba(255, 255, 255, 0.84), 86vw 68vh rgba(255, 255, 255, 0.76), 70vw 73vh rgba(255, 255, 255, 0.82), 42vw 57vh rgba(255, 255, 255, 0.89), 71vw 62vh rgba(255, 255, 255, 0.93), 85vw 27vh rgba(255, 255, 255, 0.80), 100vw 96vh rgba(255, 255, 255, 0.89), 9vw 27vh rgba(255, 255, 255, 0.99), 69vw 85vh rgba(255, 255, 255, 0.72), 49vw 40vh rgba(255, 255, 255, 0.97), 43vw 42vh rgba(255, 255, 255, 0.81), 80vw 53vh rgba(255, 255, 255, 0.87), 29vw 2vh rgba(255, 255, 255, 0.95), 40vw 3vh rgba(255, 255, 255, 0.98), 87vw 30vh rgba(255, 255, 255, 0.76), 40vw 41vh rgba(255, 255, 255, 0.87), 22vw 83vh rgba(255, 255, 255, 0.83), 19vw 65vh rgba(255, 255, 255, 0.72), 16vw 64vh rgba(255, 255, 255, 0.71), 80vw 92vh rgba(255, 255, 255, 0.71), 39vw 90vh rgba(255, 255, 255, 0.86), 71vw 65vh rgba(255, 255, 255, 0.79), 43vw 87vh rgba(255, 255, 255, 0.81), 2vw 8vh rgba(255, 255, 255, 0.95), 17vw 83vh rgba(255, 255, 255, 0.77), 73vw 56vh rgba(255, 255, 255, 0.99), 12vw 32vh rgba(255, 255, 255, 0.72), 35vw 30vh rgba(255, 255, 255, 0.80), 41vw 82vh rgba(255, 255, 255, 0.71), 52vw 7vh rgba(255, 255, 255, 0.91), 90vw 59vh rgba(255, 255, 255, 0.94), 87vw 32vh rgba(255, 255, 255, 0.78), 28vw 50vh rgba(255, 255, 255, 0.88), 70vw 9vh rgba(255, 255, 255, 0.93), 62vw 48vh rgba(255, 255, 255, 0.92), 10vw 5vh rgba(255, 255, 255, 0.86), 53vw 100vh rgba(255, 255, 255, 0.80), 65vw 29vh rgba(255, 255, 255, 0.97), 67vw 55vh rgba(255, 255, 255, 0.79), 40vw 46vh rgba(255, 255, 255, 0.94), 67vw 39vh rgba(255, 255, 255, 0.86), 43vw 42vh rgba(255, 255, 255, 0.74), 87vw 93vh rgba(255, 255, 255, 0.77), 78vw 16vh rgba(255, 255, 255, 0.80), 91vw 84vh rgba(255, 255, 255, 0.74), 39vw 2vh rgba(255, 255, 255, 0.98), 98vw 35vh rgba(255, 255, 255, 0.86), 26vw 50vh rgba(255, 255, 255, 0.84), 35vw 36vh rgba(255, 255, 255, 1.00), 22vw 54vh rgba(255, 255, 255, 0.82), 98vw 83vh rgba(255, 255, 255, 0.73), 83vw 8vh rgba(255, 255, 255, 0.99), 85vw 38vh rgba(255, 255, 255, 0.92), 28vw 23vh rgba(255, 255, 255, 0.75), 49vw 36vh rgba(255, 255, 255, 0.74), 26vw 40vh rgba(255, 255, 255, 0.84), 54vw 10vh rgba(255, 255, 255, 0.85), 38vw 72vh rgba(255, 255, 255, 0.85), 13vw 2vh rgba(255, 255, 255, 0.96), 79vw 60vh rgba(255, 255, 255, 0.91), 48vw 8vh rgba(255, 255, 255, 0.86), 73vw 15vh rgba(255, 255, 255, 0.84), 43vw 79vh rgba(255, 255, 255, 0.90), 42vw 84vh rgba(255, 255, 255, 0.91), 63vw 6vh rgba(255, 255, 255, 0.99), 77vw 39vh rgba(255, 255, 255, 0.84), 89vw 44vh rgba(255, 255, 255, 0.92), 29vw 52vh rgba(255, 255, 255, 0.88), 57vw 55vh rgba(255, 255, 255, 0.85), 99vw 84vh rgba(255, 255, 255, 0.82), 65vw 52vh rgba(255, 255, 255, 0.77), 66vw 71vh rgba(255, 255, 255, 0.84), 61vw 87vh rgba(255, 255, 255, 0.76), 86vw 32vh rgba(255, 255, 255, 0.94), 15vw 49vh rgba(255, 255, 255, 0.72), 94vw 96vh rgba(255, 255, 255, 0.87), 13vw 71vh rgba(255, 255, 255, 0.74), 2vw 23vh rgba(255, 255, 255, 0.80), 53vw 59vh rgba(255, 255, 255, 0.91), 71vw 35vh rgba(255, 255, 255, 0.96), 6vw 7vh rgba(255, 255, 255, 0.75), 2vw 28vh rgba(255, 255, 255, 0.96), 48vw 94vh rgba(255, 255, 255, 0.89), 35vw 59vh rgba(255, 255, 255, 0.74), 56vw 20vh rgba(255, 255, 255, 0.89), 69vw 94vh rgba(255, 255, 255, 0.77), 5vw 57vh rgba(255, 255, 255, 0.81), 89vw 58vh rgba(255, 255, 255, 0.77), 16vw 87vh rgba(255, 255, 255, 0.88), 20vw 66vh rgba(255, 255, 255, 0.88), 37vw 62vh rgba(255, 255, 255, 0.74), 38vw 26vh rgba(255, 255, 255, 0.90), 38vw 41vh rgba(255, 255, 255, 0.85), 28vw 5vh rgba(255, 255, 255, 0.85), 28vw 86vh rgba(255, 255, 255, 0.76), 51vw 63vh rgba(255, 255, 255, 0.83), 91vw 15vh rgba(255, 255, 255, 0.92), 48vw 7vh rgba(255, 255, 255, 0.71), 23vw 53vh rgba(255, 255, 255, 0.82), 35vw 35vh rgba(255, 255, 255, 0.88), 45vw 71vh rgba(255, 255, 255, 0.78), 93vw 69vh rgba(255, 255, 255, 0.98), 17vw 66vh rgba(255, 255, 255, 0.83), 51vw 6vh rgba(255, 255, 255, 0.77), 95vw 1vh rgba(255, 255, 255, 0.74), 7vw 64vh rgba(255, 255, 255, 0.87), 71vw 81vh rgba(255, 255, 255, 0.84), 40vw 39vh rgba(255, 255, 255, 0.82), 20vw 29vh rgba(255, 255, 255, 0.77), 4vw 96vh rgba(255, 255, 255, 0.89), 31vw 71vh rgba(255, 255, 255, 0.81), 51vw 47vh rgba(255, 255, 255, 0.83), 44vw 1vh rgba(255, 255, 255, 0.86), 32vw 46vh rgba(255, 255, 255, 0.71), 47vw 74vh rgba(255, 255, 255, 0.88), 16vw 20vh rgba(255, 255, 255, 0.84), 6vw 38vh rgba(255, 255, 255, 0.98), 45vw 87vh rgba(255, 255, 255, 0.84), 62vw 85vh rgba(255, 255, 255, 0.81), 96vw 20vh rgba(255, 255, 255, 0.73), 82vw 8vh rgba(255, 255, 255, 0.76), 89vw 63vh rgba(255, 255, 255, 0.71), 87vw 34vh rgba(255, 255, 255, 0.87), 93vw 47vh rgba(255, 255, 255, 0.71), 12vw 27vh rgba(255, 255, 255, 0.77), 94vw 84vh rgba(255, 255, 255, 0.86), 41vw 60vh rgba(255, 255, 255, 0.94), 12vw 17vh rgba(255, 255, 255, 0.73), 64vw 1vh rgba(255, 255, 255, 0.93), 10vw 11vh rgba(255, 255, 255, 0.71), 80vw 9vh rgba(255, 255, 255, 0.79), 47vw 20vh rgba(255, 255, 255, 0.91), 78vw 48vh rgba(255, 255, 255, 0.83), 40vw 6vh rgba(255, 255, 255, 0.73);
+}
+.stars-lg::after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 5px #fff);
+    animation: twinkle 4s ease-in-out infinite alternate, stars-move 100s linear infinite;
+    box-shadow: 38vw 30vh rgba(255, 255, 255, 0.95), 63vw 51vh rgba(255, 255, 255, 0.87), 100vw 59vh rgba(255, 255, 255, 0.95), 56vw 41vh rgba(255, 255, 255, 0.86), 80vw 85vh rgba(255, 255, 255, 0.83), 64vw 46vh rgba(255, 255, 255, 0.82), 34vw 37vh rgba(255, 255, 255, 0.97), 29vw 35vh rgba(255, 255, 255, 0.83), 14vw 72vh rgba(255, 255, 255, 0.98), 69vw 35vh rgba(255, 255, 255, 0.85), 8vw 82vh rgba(255, 255, 255, 0.96), 41vw 45vh rgba(255, 255, 255, 0.91), 79vw 10vh rgba(255, 255, 255, 0.82), 27vw 83vh rgba(255, 255, 255, 1.00), 11vw 56vh rgba(255, 255, 255, 0.81), 44vw 77vh rgba(255, 255, 255, 0.88), 6vw 17vh rgba(255, 255, 255, 0.94), 71vw 99vh rgba(255, 255, 255, 0.87), 17vw 34vh rgba(255, 255, 255, 0.94), 90vw 89vh rgba(255, 255, 255, 0.99), 38vw 11vh rgba(255, 255, 255, 0.93), 49vw 35vh rgba(255, 255, 255, 0.88), 20vw 13vh rgba(255, 255, 255, 0.92), 18vw 2vh rgba(255, 255, 255, 0.89), 84vw 40vh rgba(255, 255, 255, 0.82), 56vw 47vh rgba(255, 255, 255, 0.92), 10vw 67vh rgba(255, 255, 255, 0.88), 49vw 7vh rgba(255, 255, 255, 0.96), 45vw 38vh rgba(255, 255, 255, 0.83), 3vw 37vh rgba(255, 255, 255, 0.89), 92vw 11vh rgba(255, 255, 255, 0.87), 49vw 5vh rgba(255, 255, 255, 0.99), 75vw 45vh rgba(255, 255, 255, 0.88), 78vw 3vh rgba(255, 255, 255, 0.95), 86vw 32vh rgba(255, 255, 255, 1.00), 9vw 21vh rgba(255, 255, 255, 0.82), 46vw 45vh rgba(255, 255, 255, 0.85), 25vw 1vh rgba(255, 255, 255, 0.99), 76vw 72vh rgba(255, 255, 255, 0.89), 83vw 97vh rgba(255, 255, 255, 0.87), 96vw 91vh rgba(255, 255, 255, 0.82), 43vw 100vh rgba(255, 255, 255, 0.87), 51vw 99vh rgba(255, 255, 255, 0.86), 9vw 28vh rgba(255, 255, 255, 0.80), 83vw 78vh rgba(255, 255, 255, 0.90), 99vw 6vh rgba(255, 255, 255, 0.84), 31vw 37vh rgba(255, 255, 255, 0.88), 89vw 93vh rgba(255, 255, 255, 0.99), 81vw 35vh rgba(255, 255, 255, 0.94), 11vw 81vh rgba(255, 255, 255, 0.82);
+}
+
+@keyframes stars-move {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100vh); }
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.4; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Galaxy Spiral Effect (CSS Pseudo-element) */
+.galaxy-spiral {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150vmax;
+    height: 150vmax;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(94, 106, 210, 0.1) 0%, transparent 60%);
+    animation: rotate-galaxy 60s linear infinite;
+    pointer-events: none;
+}
+.galaxy-spiral::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        conic-gradient(from 0deg, transparent 0deg, rgba(94, 106, 210, 0.1) 60deg, transparent 100deg, transparent 180deg, rgba(94, 106, 210, 0.1) 240deg, transparent 280deg);
+    border-radius: 50%;
+    filter: blur(80px);
+}
+
+@keyframes rotate-galaxy {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Meteor Shower */
+.meteor-shower {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1; pointer-events: none;
+    overflow: hidden;
+}
+.meteor {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 300px; height: 2px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 1) 100%); /* Flipped gradient for leftward movement */
+    transform: rotate(225deg); /* Rotated to point from top-right to bottom-left */
+    opacity: 0;
+    animation: meteor-fall linear infinite;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+    border-radius: 50% 0 0 50%;
+}
+
+/* Head of the meteor */
+.meteor::before {
+    content: "";
+    position: absolute;
+    left: 0; /* Move head to the left end */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8), 0 0 20px 4px rgba(94, 106, 210, 0.4);
+}
+
+@keyframes meteor-fall {
+    0% { 
+        opacity: 0; 
+        transform: translate(200px, -200px) rotate(225deg) scale(0.8); 
+    }
+    10% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(225deg) scale(1);
+    }
+    100% { 
+        opacity: 0; 
+        transform: translate(-100vw, 100vh) rotate(225deg) scale(1); 
+    }
+}
+
+/* Adjusted Positions for Top-Right Origin */
+.meteor:nth-child(1) { top: -10%; left: 80%; animation-duration: 2s; animation-delay: 0s; width: 200px; }
+.meteor:nth-child(2) { top: 10%; left: 100%; animation-duration: 2.5s; animation-delay: 2s; width: 250px; }
+.meteor:nth-child(3) { top: -20%; left: 60%; animation-duration: 2.2s; animation-delay: 4s; width: 180px; }
+.meteor:nth-child(4) { top: 30%; left: 110%; animation-duration: 1.5s; animation-delay: 1s; width: 220px; }
+.meteor:nth-child(5) { top: -5%; left: 90%; animation-duration: 3s; animation-delay: 3s; width: 300px; }
+.meteor:nth-child(6) { top: 15%; left: 105%; animation-duration: 2.1s; animation-delay: 5s; width: 190px; }
+.meteor:nth-child(7) { top: -15%; left: 70%; animation-duration: 2.4s; animation-delay: 1.5s; width: 260px; }
+.meteor:nth-child(8) { top: 40%; left: 115%; animation-duration: 1.8s; animation-delay: 6s; width: 210px; }
+
+
+/* --- Main Container (Split Layout) --- */
+.main-container {
+    display: flex;
+    width: 85%;
+    max-width: 1000px; /* Reduced from 1200px */
+    height: 75vh; /* Reduced from 85vh */
+    min-height: 550px; /* Reduced from 600px */
+    background: rgba(18, 18, 20, 0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 28px; /* Slightly smaller radius */
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    z-index: 10;
+}
+
+/* --- Left Panel (Form) --- */
+.left-panel {
+    flex: 1;
+    padding: 48px; /* Reduced from 60px */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.brand {
+    position: absolute;
+    top: 32px; /* Reduced from 40px */
+    left: 48px; /* Reduced from 60px */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem; /* Slightly smaller */
+    font-weight: 600;
+    color: #fff;
+}
+
+.lang-selector-container {
+    position: absolute;
+    top: 32px;
+    right: 48px;
+    z-index: 20;
+}
+
+.lang-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #A1A1AA;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.lang-btn:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: #27272A; /* Zinc-800 for better contrast against dark bg */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.2s;
+    min-width: 120px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+.lang-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.lang-option {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    color: #E4E4E7;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.lang-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.form-content {
+    max-width: 360px; /* Reduced from 400px */
+    width: 100%;
+}
+
+.form-title {
+    font-size: 1.1rem; /* Reduced from 1.2rem */
+    font-weight: 500;
+    color: #E4E4E7;
+    margin-bottom: 32px; /* Reduced from 40px */
+}
+
+.input-group {
+    margin-bottom: 20px; /* Reduced from 24px */
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem; /* Reduced from 0.9rem */
+    color: #A1A1AA;
+    margin-bottom: 6px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 14px; /* Reduced padding */
+    background: #fff;
+    border: 1px solid #E4E4E7;
+    border-radius: 10px; /* Smaller radius */
+    font-size: 0.95rem; /* Slightly smaller */
+    color: #18181B;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.forgot-pass {
+    position: absolute;
+    right: 0;
+    bottom: -22px;
+    font-size: 0.8rem; /* Smaller */
+    color: #A1A1AA;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.sign-in-btn {
+    width: 100%;
+    padding: 12px; /* Reduced padding */
+    background: linear-gradient(135deg, #5E6AD2, #4F46E5);
+    color: #fff;
+    border: none;
+    border-radius: 10px; /* Smaller radius */
+    font-size: 0.95rem; /* Smaller font */
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px; /* Reduced margin */
+    margin-bottom: 28px; /* Reduced margin */
+    transition: all 0.2s;
+}
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 14px; /* Reduced gap */
+    margin-bottom: 28px; /* Reduced margin */
+}
+
+.social-btn {
+    width: 42px; /* Reduced from 48px */
+    height: 42px; /* Reduced from 48px */
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem; /* Smaller icon */
+    color: #18181B;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.create-account a {
+    color: #fff;
+    text-decoration: underline;
+    font-size: 0.85rem; /* Smaller font */
+    cursor: pointer;
+}
+
+/* --- Right Panel (Info) --- */
+.right-panel {
+    flex: 1;
+    background: #5E6AD2;
+    background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    margin: 14px;
+    border-radius: 20px 60px 20px 20px;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 80px rgba(0,0,0,0.5);
+}
+
+/* Optional overlay to ensure image matches theme */
+.right-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(94, 106, 210, 0.3), rgba(0, 0, 0, 0.6));
+    z-index: 1;
+}
+
+.panel-content {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Enhance text readability */
+}
+
+.panel-heading {
+    font-size: 2.5rem; /* Reduced from 3rem */
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.quote-icon {
+    font-size: 1.8rem;
+    color: rgba(255,255,255,0.8); /* More opaque */
+    margin-bottom: 20px;
+}
+
+.testimonial-text {
+    font-size: 1rem; /* Reduced from 1.1rem */
+    line-height: 1.6;
+    color: rgba(255,255,255,0.95); /* More opaque */
+    margin-bottom: 28px;
+    max-width: 95%;
+}
+
+.author-info {
+    margin-bottom: 32px;
+}
+
+.author-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.author-role {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+}
+
+.nav-arrows {
+    display: flex;
+    gap: 12px;
+}
+
+.arrow-btn {
+    width: 42px; /* Reduced from 48px */
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(0,0,0,0.2); /* Semi-transparent bg */
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+}
+
+.arrow-btn.active {
+    background: #fff;
+    color: #18181B;
+    border-color: #fff;
+}
+
+.arrow-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+.arrow-btn.active:hover {
+    background: rgba(255,255,255,0.9);
+}
+
+/* Floating Card */
+.floating-card {
+    position: absolute;
+    bottom: 32px; /* Reduced from 40px */
+    right: 32px; /* Reduced from 40px */
+    background: rgba(255, 255, 255, 0.95); /* Slightly transparent */
+    padding: 24px; /* Reduced from 32px */
+    border-radius: 20px 20px 20px 8px;
+    width: 280px; /* Reduced from 320px */
+    color: #18181B;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    z-index: 2;
+    backdrop-filter: blur(10px);
+}
+
+.floating-icon {
+    position: absolute;
+    top: -20px; /* Adjusted */
+    right: 20px;
+    width: 40px; /* Reduced */
+    height: 40px;
+    background: #18181B;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.floating-card h3 {
+    font-size: 1.1rem; /* Reduced */
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.floating-card p {
+    font-size: 0.85rem; /* Reduced */
+    color: #52525B;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.avatars {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 28px; /* Reduced */
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    margin-right: -8px;
+}
+
+.avatar-plus {
+    margin-left: 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #18181B;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .main-container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .right-panel {
+        margin: 0;
+        border-radius: 0;
+        padding: 40px;
+        order: -1; /* Show image/info first on mobile */
+    }
+    
+    .floating-card {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 40px;
+        width: 100%;
+    }
+    
+    .left-panel {
+        padding: 40px;
+    }
+    
+    .brand {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 40px;
+    }
+}

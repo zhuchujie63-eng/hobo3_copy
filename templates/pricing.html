@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1>升级到专业版 / Upgrade to Pro</h1>
+    <p class="lead">解锁无限次视频翻译与下载功能</p>
+    
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <div class="card border-primary mb-3 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="my-1"><i class="fa-solid fa-crown"></i> 永久会员 Pro</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title display-4">¥9.9</h1>
+                    <p class="text-muted">限时特惠 / Limited Offer</p>
+                    <ul class="list-unstyled mt-4 mb-4 text-start mx-auto" style="max-width: 200px;">
+                        <li>✅ 无限次视频提取</li>
+                        <li>✅ 无限次AI翻译</li>
+                        <li>✅ 无限次语音合成</li>
+                        <li>✅ 优先技术支持</li>
+                    </ul>
+                    
+                    <div class="alert alert-warning" role="alert">
+                        <strong>重要提示：</strong><br>
+                        付款时请务必备注您的用户名：<br>
+                        <span class="fs-4 fw-bold text-danger">{{ current_user.username }}</span>
+                    </div>
+
+                    <ul class="nav nav-tabs nav-fill mb-3" id="paymentTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="wechat-tab" data-bs-toggle="tab" data-bs-target="#wechat" type="button" role="tab"><i class="bi bi-wechat"></i> 微信支付</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="alipay-tab" data-bs-toggle="tab" data-bs-target="#alipay" type="button" role="tab"><i class="bi bi-alipay"></i> 支付宝</button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content" id="paymentTabContent">
+                        <div class="tab-pane fade show active" id="wechat" role="tabpanel">
+                            <img src="{{ url_for('static', filename='img/wechat_pay.png') }}" class="img-fluid border rounded p-2" alt="微信收款码" style="max-width: 200px;">
+                            <p class="mt-2 small text-muted">请使用微信扫一扫</p>
+                        </div>
+                        <div class="tab-pane fade" id="alipay" role="tabpanel">
+                            <img src="{{ url_for('static', filename='img/alipay_pay.png') }}" class="img-fluid border rounded p-2" alt="支付宝收款码" style="max-width: 200px;">
+                            <p class="mt-2 small text-muted">请使用支付宝扫一扫</p>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <p class="small text-muted text-start">
+                        * 支付成功后，管理员会在 24 小时内为您手动开通权限。<br>
+                        * 如需加急，请截图支付凭证发送至邮箱：<a href="mailto:support@example.com">support@example.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

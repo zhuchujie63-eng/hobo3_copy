@@ -1,0 +1,7 @@
+flask
+gunicorn
+yt-dlp
+requests
+flask-login
+flask-sqlalchemy
+flask-bcrypt

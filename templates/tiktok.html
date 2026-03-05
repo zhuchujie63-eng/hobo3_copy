@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tiktok.css') }}">
+
+<div class="tiktok-container">
+    <div class="header-section text-center mb-5">
+        <h1 class="display-4 fw-bold mb-3">免费 TikTok 字幕提取器</h1>
+        <p class="lead text-muted">一键生成并下载 .srt / 文本，支持多语言字幕。无需注册。</p>
+    </div>
+
+    <div class="input-section mb-5">
+        <div class="input-group input-group-lg shadow-sm">
+            <input type="text" id="tiktokUrl" class="form-control" placeholder="https://www.tiktok.com/@user/video/..." aria-label="TikTok 链接">
+            <button class="btn btn-primary px-5 fw-bold" type="button" id="extractBtn">提取</button>
+        </div>
+        <div id="error-message" class="text-danger mt-2 text-center" style="display: none;"></div>
+    </div>
+
+    <div id="loading-spinner" class="text-center my-5" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">加载中...</span>
+        </div>
+        <p class="mt-2 text-muted">正在提取字幕，请稍候...</p>
+    </div>
+
+    <div id="result-section" class="result-card card shadow-sm" style="display: none;">
+        <div class="card-body p-0">
+            <div class="row g-0">
+                <!-- Video Section (Left) -->
+                <div class="col-lg-4 video-col border-end">
+                    <div class="video-container d-flex align-items-center justify-content-center bg-black h-100">
+                        <img id="video-thumbnail" src="" alt="视频缩略图" class="img-fluid" style="max-height: 500px; width: auto;">
+                        <!-- Ideally replace with iframe if embed code available -->
+                    </div>
+                </div>
+
+                <!-- Transcript Section (Right) -->
+                <div class="col-lg-8 transcript-col">
+                    <div class="transcript-header d-flex justify-content-between align-items-center p-3 border-bottom">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="language-select">
+                                <label for="langSelect" class="form-label visually-hidden">语言</label>
+                                <select id="langSelect" class="form-select form-select-sm" style="width: auto;">
+                                    <!-- Options populated by JS -->
+                                </select>
+                            </div>
+                            <div class="form-check form-switch mb-0">
+                                <input class="form-check-input" type="checkbox" id="showTimestamp">
+                                <label class="form-check-label small" for="showTimestamp">显示时间戳</label>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-outline-secondary btn-sm me-1" id="copyBtn" title="复制文本">
+                                <i class="bi bi-clipboard"></i>
+                            </button>
+                            <a href="#" class="btn btn-outline-secondary btn-sm" id="downloadBtn" download="transcript.srt" title="下载 SRT">
+                                <i class="bi bi-download"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="transcript-content p-4" id="transcript-text">
+                        <!-- Transcript lines go here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const extractBtn = document.getElementById('extractBtn');
+    const urlInput = document.getElementById('tiktokUrl');
+    const loadingSpinner = document.getElementById('loading-spinner');
+    const resultSection = document.getElementById('result-section');
+    const errorMsg = document.getElementById('error-message');
+    const transcriptText = document.getElementById('transcript-text');
+    const langSelect = document.getElementById('langSelect');
+    const videoThumbnail = document.getElementById('video-thumbnail');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const showTimestamp = document.getElementById('showTimestamp');
+    const copyBtn = document.getElementById('copyBtn');
+
+    let currentSubtitles = []; // Store raw subtitles data
+
+    extractBtn.addEventListener('click', async () => {
+        const url = urlInput.value.trim();
+        if (!url) {
+            showError('请输入 TikTok 视频链接');
+            return;
+        }
+
+        // Reset UI
+        showError('');
+        resultSection.style.display = 'none';
+        loadingSpinner.style.display = 'block';
+        extractBtn.disabled = true;
+
+        try {
+            const response = await fetch('/api/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    mode: '4', // TikTok extraction mode
+                    text: url
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || '提取失败');
+            }
+
+            // Success
+            displayResults(data);
+
+        } catch (err) {
+            showError(err.message);
+        } finally {
+            loadingSpinner.style.display = 'none';
+            extractBtn.disabled = false;
+        }
+    });
+
+    function showError(msg) {
+        errorMsg.textContent = msg;
+        errorMsg.style.display = msg ? 'block' : 'none';
+    }
+
+    function displayResults(data) {
+        resultSection.style.display = 'block';
+        
+        // Metadata
+        if (data.metadata) {
+            videoThumbnail.src = data.metadata.thumbnail || '';
+        }
+
+        // Subtitles
+        currentSubtitles = data.subtitles || [];
+        
+        // Populate Language Select
+        langSelect.innerHTML = '';
+        currentSubtitles.forEach((sub, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = sub.lang;
+            langSelect.appendChild(option);
+        });
+
+        // Trigger render of first language
+        if (currentSubtitles.length > 0) {
+            renderTranscript(0);
+        }
+
+        // Setup Download Link (default to first)
+        if (data.target_srt_url) {
+            downloadBtn.href = data.target_srt_url;
+        }
+    }
+
+    function renderTranscript(index) {
+        const sub = currentSubtitles[index];
+        if (!sub) return;
+
+        const content = sub.content;
+        const showTime = showTimestamp.checked;
+        
+        transcriptText.innerHTML = ''; // Clear
+
+        // Simple SRT parsing for display
+        // Assuming content is standard SRT format
+        const blocks = content.trim().split(/\n\s*\n/);
+        
+        blocks.forEach(block => {
+            const lines = block.split('\n');
+            if (lines.length >= 3) {
+                const time = lines[1];
+                const text = lines.slice(2).join(' '); // Combine text lines
+
+                const p = document.createElement('p');
+                p.className = 'transcript-line mb-3';
+                
+                if (showTime) {
+                    const timeSpan = document.createElement('span');
+                    timeSpan.className = 'timestamp text-muted me-2 small';
+                    timeSpan.textContent = `[${time.split(' --> ')[0]}]`; // Show start time
+                    p.appendChild(timeSpan);
+                }
+                
+                const textSpan = document.createElement('span');
+                textSpan.className = 'text-content';
+                textSpan.textContent = text;
+                p.appendChild(textSpan);
+
+                transcriptText.appendChild(p);
+            }
+        });
+    }
+
+    // Event Listeners for controls
+    langSelect.addEventListener('change', (e) => {
+        renderTranscript(e.target.value);
+    });
+
+    showTimestamp.addEventListener('change', () => {
+        renderTranscript(langSelect.value);
+    });
+
+    copyBtn.addEventListener('click', () => {
+        const text = transcriptText.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalIcon = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="bi bi-check"></i>';
+            setTimeout(() => {
+                copyBtn.innerHTML = originalIcon;
+            }, 2000);
+        });
+    });
+});
+</script>
+{% endblock %}
