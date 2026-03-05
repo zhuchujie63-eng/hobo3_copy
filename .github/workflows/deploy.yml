@@ -21,6 +21,14 @@ jobs:
           else
             echo "Port 2222 unreachable from GitHub runner"; exit 1
           fi
+      - name: Detailed SSH Connection Test
+        run: |
+          set -e
+          echo "Starting detailed SSH connection test..."
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh -vvv -i ~/.ssh/id_ed25519 -p 2222 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'echo "SSH connection successful"'
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
