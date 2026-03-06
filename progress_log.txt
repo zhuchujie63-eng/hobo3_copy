@@ -1,2 +1,0 @@
-2026-03-05 15:XX:XX - 推送命令（ID：96498de2-30f2-40d1-995c-6d60e10bb5a8）失败，错误：fatal: unable to access 'https://github.com/zhuchujie63-eng/hobo3_copy.git/': Recv failure: Connection was reset；将在网络恢复后再次重试推送repo_git子目录中的备案号和start_website.bat改动
-2026-03-05 15:XX:XX - 推送命令（ID：621d6acd-bb83-4ead-9b57-aa3f308ed7e3）再次失败，错误相同；建议检查网络连接或尝试使用SSH方式推送
