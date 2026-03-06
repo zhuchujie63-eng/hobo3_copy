@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-set PORT=5005
+set PORT=5006
 set PYTHONPATH=%~dp0libs;%PYTHONPATH%
 
 echo Starting DeepSeek Multilingual Studio (COPY VERSION)...
@@ -16,8 +16,11 @@ if %ERRORLEVEL%==0 (
 
 echo Using Python: %PYTHON_CMD%
 
-echo Installing dependencies from requirements.txt...
-%PYTHON_CMD% -m pip install -r "%~dp0requirements.txt"
+echo Checking dependencies...
+%PYTHON_CMD% -c "import pkg_resources, sys; reqs = open('requirements.txt').read().splitlines(); missing = [r.split('==')[0] for r in reqs if r and not r.startswith('#') and not pkg_resources.get_distribution(r.split('==')[0]).exists()]; sys.exit(0) if not missing else print(f'Missing: {missing}')" 2>nul || (
+  echo Installing missing dependencies from requirements.txt...
+  %PYTHON_CMD% -m pip install -r "%~dp0requirements.txt"
+)
 
 echo Starting backend server on port %PORT%...
 echo A new window named "DeepSeek Server" will open for the backend.
@@ -26,8 +29,8 @@ echo If the server fails to start, error messages will appear in that window.
 
 start "DeepSeek Server" cmd /k "cd /d %~dp0 && set PORT=%PORT% && set PYTHONPATH=%PYTHONPATH% && %PYTHON_CMD% app.py"
 
-echo Waiting for server to start...
-timeout /t 5 /nobreak >nul
+echo Waiting for server to start (5 seconds)...
+ping 127.0.0.1 -n 6 >nul
 
 echo Opening website in your default browser...
 start "" http://127.0.0.1:%PORT%/
