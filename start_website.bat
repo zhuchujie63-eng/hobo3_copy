@@ -16,10 +16,13 @@ if %ERRORLEVEL%==0 (
 
 echo Using Python: %PYTHON_CMD%
 
-echo Checking dependencies...
-%PYTHON_CMD% -c "import pkg_resources, sys; reqs = open('requirements.txt').read().splitlines(); missing = [r.split('==')[0] for r in reqs if r and not r.startswith('#') and not pkg_resources.get_distribution(r.split('==')[0]).exists()]; sys.exit(0) if not missing else print(f'Missing: {missing}')" 2>nul || (
-  echo Installing missing dependencies from requirements.txt...
-  %PYTHON_CMD% -m pip install -r "%~dp0requirements.txt"
+echo Checking Python environment...
+%PYTHON_CMD% --version
+
+echo Checking Flask...
+%PYTHON_CMD% -c "import flask; print(f'Flask {flask.__version__} OK')" 2>nul || (
+  echo WARNING: Flask not found. Basic dependencies should be installed.
+  echo For full functionality, run: pip install -r requirements.txt
 )
 
 echo Starting backend server on port %PORT%...
