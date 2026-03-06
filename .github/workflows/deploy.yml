@@ -12,13 +12,32 @@ jobs:
       - name: Show target
         run: |
           echo "Deploy target: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PORT }}"
+      - name: Check port reachability
+        run: |
+          set -e
+          echo "Checking TCP reachability to ${{ secrets.SSH_HOST }}:2222"
+          if timeout 8 bash -c "cat < /dev/null > /dev/tcp/${{ secrets.SSH_HOST }}/2222"; then
+            echo "Port 2222 reachable"
+          else
+            echo "Port 2222 unreachable from GitHub runner"; exit 1
+          fi
+      - name: Detailed SSH Connection Test
+        run: |
+          set -e
+          echo "Starting detailed SSH connection test..."
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh -vvv -i ~/.ssh/id_ed25519 -p 2222 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'echo "SSH connection successful"'
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          port: 2222
+          timeout: 120s
+          debug: true
           script: |
             set -e
             # Ensure base tools
